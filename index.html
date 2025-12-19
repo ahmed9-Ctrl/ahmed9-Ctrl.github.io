@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alam | CS Student & Developer</title>
+    <style>
+        /* --- RESET & CORE VARIABLES --- */
+        :root {
+            --bg-dark: #050a14; /* Very dark blue/black */
+            --primary: #5865F2; /* Soft Blue */
+            --accent: #9b51e0; /* Deep Purple */
+            --text-main: #e0e6ed;
+            --text-muted: #94a3b8;
+            --card-bg: rgba(30, 41, 59, 0.5);
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 {
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .highlight {
+            color: var(--primary);
+            background: -webkit-linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- ANIMATED BACKGROUND --- */
+        .bg-glow {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(88, 101, 242, 0.15), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(155, 81, 224, 0.15), transparent 25%);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 10%;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--glass);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 0 10%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h3 {
+            color: var(--accent);
+            font-family: 'Courier New', monospace;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            max-width: 600px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: rgba(88, 101, 242, 0.1);
+            box-shadow: 0 0 15px rgba(88, 101, 242, 0.3);
+        }
+
+        /* --- SKILLS SECTION --- */
+        .section {
+            padding: 5rem 10%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-tag {
+            background: var(--card-bg);
+            border: 1px solid var(--glass);
+            padding: 1rem;
+            text-align: center;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        /* --- PROJECTS SECTION --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--glass);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-color: var(--primary);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .card-content p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-stack-mini {
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            border-top: 1px solid var(--glass);
+            margin-top: 4rem;
+        }
+
+        .social-links a {
+            color: var(--text-main);
+            margin: 0 1rem;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+        }
+
+        /* --- MOBILE RESPONSIVENESS --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            nav { padding: 1.5rem 5%; }
+            .hero { padding: 0 5%; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="bg-glow"></div>
+
+    <nav>
+        <div class="logo">&lt;Alam/&gt;</div>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Work</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h3>Hello, I am Alam</h3>
+        <h1>Building at the intersection of <br><span class="highlight">Hardware & Software.</span></h1>
+        <p>Computer Science Student at HNU. I specialize in C/C++, Embedded Systems, and Creative Development. I build what I imagine.</p>
+        <a href="#contact" class="btn">Get In Touch</a>
+    </section>
+
+    <section id="about" class="section">
+        <h2 class="section-title">About Me</h2>
+        <p style="color: var(--text-muted); max-width: 700px;">
+            I am a first-year student at the Faculty of Computers and Information Technology, Helwan National University. 
+            My passion lies in "Gap Development"—working in the spaces between pure software and physical hardware. 
+            Whether it's creating custom game logic in Unity or soldering a new sensor onto an Arduino board, 
+            I love the process of engineering solutions.
+        </p>
+    </section>
+
+    <section id="skills" class="section">
+        <h2 class="section-title">Tech Arsenal</h2>
+        <div class="skills-grid">
+            <div class="skill-tag"><i class="fab fa-cuttlefish"></i> C / C++</div>
+            <div class="skill-tag"><i class="fab fa-python"></i> Python</div>
+            <div class="skill-tag"><i class="fas fa-microchip"></i> Arduino</div>
+            <div class="skill-tag"><i class="fab fa-unity"></i> Unity Engine</div>
+            <div class="skill-tag"><i class="fas fa-code-branch"></i> Git & GitHub</div>
+            <div class="skill-tag"><i class="fas fa-video"></i> After Effects</div>
+            <div class="skill-tag"><i class="fas fa-image"></i> Photoshop</div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <h2 class="section-title">Selected Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="card-content">
+                    <h3><i class="fas fa-car"></i> RC Car Prototype</h3>
+                    <p>A Bluetooth-controlled robotic vehicle built from scratch. Features custom motor driver logic and mobile phone integration.</p>
+                    <span class="tech-stack-mini">Arduino • C++ • Bluetooth</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="card-content">
+                    <h3><i class="fas fa-satellite-dish"></i> Ultrasonic Radar</h3>
+                    <p>Object detection system that visualizes proximity data on a PC screen using ultrasonic sensors.</p>
+                    <span class="tech-stack-mini">Arduino • Processing • Sensors</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="card-content">
+                    <h3><i class="fas fa-gamepad"></i> Unity Game Dev</h3>
+                    <p>Co-developed a functional game featuring custom physics and interactions. A deep dive into C# scripting.</p>
+                    <span class="tech-stack-mini">Unity • C# • Game Design</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="card-content">
+                    <h3><i class="fas fa-lightbulb"></i> IoT Light Switch</h3>
+                    <p>Smart home prototype allowing remote control of physical lighting via a custom mobile interface.</p>
+                    <span class="tech-stack-mini">IoT • Hardware • Mobile</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section" style="text-align: center;">
+        <h2 class="section-title">Let's Connect</h2>
+        <p style="color: var(--text-muted); margin-bottom: 2rem;">
+            Currently open for collaborations and internships.
+        </p>
+        <a href="mailto:your-email@example.com" class="btn">Send an Email</a>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://github.com/YOUR_USERNAME"><i class="fab fa-github"></i></a>
+            <a href="https://linkedin.com/in/YOUR_USERNAME"><i class="fab fa-linkedin"></i></a>
+            <a href="https://twitter.com/YOUR_USERNAME"><i class="fab fa-twitter"></i></a>
+            <a href="https://facebook.com/YOUR_USERNAME"><i class="fab fa-facebook"></i></a>
+        </div>
+        <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.8rem;">
+            © 2025 Alam. Built with code & creativity.
+        </p>
+    </footer>
+
+</body>
+</html>
