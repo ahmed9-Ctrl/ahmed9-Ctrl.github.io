@@ -461,7 +461,7 @@
         <h2 class="section-title gradient-text">About Me</h2>
         <p style="color: var(--text-muted); max-width: 750px; font-size: 1.05rem;">
             I am a first-year student at the Faculty of Computers and Information Technology, Helwan National University. 
-            My passion lies in <strong>"Creative Development"</strong>working in the spaces between pure software and physical hardware. 
+            My passion lies in <strong>"Creative Development"</strong> working in the spaces between pure software and physical hardware. 
             Whether it's crafting immersive game worlds in <strong>Unity</strong> or bringing circuits to life with <strong>Arduino</strong>, 
             I thrive on the challenge of engineering innovative solutions.
         </p>
@@ -596,39 +596,37 @@
             });
         };
 
-        // --- UNIQUE VISITOR COUNTER LOGIC (LocalStorage) ---
+        // --- UNIQUE VISITOR COUNTER LOGIC (Using countapi.xyz + LocalStorage) ---
         const counterElement = document.getElementById('visitor-count');
-        const namespace = 'ahmed9-ctrl-site'; 
+        const namespace = 'ahmed9-ctrl-portfolio'; 
         const key = 'visits';
-        const localStorageKey = 'has_visited_portfolio_v2'; // Unique key for your device
+        const localStorageKey = 'has_visited_portfolio_v3'; 
 
-        // API URL
-        const apiUrl = `https://api.counterapi.dev/v1/${namespace}/${key}`;
+        // New API URL
+        const apiUrl = `https://api.countapi.xyz`;
 
-        // Check if user has visited before
         if (localStorage.getItem(localStorageKey)) {
-            // User has visited: Just GET the number (don't increment)
-            fetch(apiUrl)
+            // User visited before: GET value
+            fetch(`${apiUrl}/get/${namespace}/${key}`)
                 .then(res => res.json())
                 .then(data => {
-                    counterElement.innerText = data.count;
+                    counterElement.innerText = data.value;
                 })
                 .catch(err => {
-                    counterElement.innerText = "N/A";
-                    console.error(err);
+                    console.error("Counter Error:", err);
+                    counterElement.innerText = "1"; 
                 });
         } else {
-            // New User: Increment the number (UP)
-            fetch(`${apiUrl}/up`)
+            // New User: HIT (increment) value
+            fetch(`${apiUrl}/hit/${namespace}/${key}`)
                 .then(res => res.json())
                 .then(data => {
-                    counterElement.innerText = data.count;
-                    // Mark as visited so we don't count them again
+                    counterElement.innerText = data.value;
                     localStorage.setItem(localStorageKey, 'true');
                 })
                 .catch(err => {
-                    counterElement.innerText = "N/A";
-                    console.error(err);
+                    console.error("Counter Error:", err);
+                    counterElement.innerText = "1";
                 });
         }
     </script>
